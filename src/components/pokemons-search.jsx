@@ -1,0 +1,69 @@
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import {Field, reduxForm} from "redux-form";
+import {
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  InputGroup,
+  Container,
+  InputGroupAddon
+} from "reactstrap";
+import getPokemon from './../redux/actions/get-pokemon';
+
+class PokemonsSearch extends Component {
+  inputField(inputProps) {
+    return (
+      <Input
+        {...inputProps.input} />
+    );
+  }
+
+  submitPerformed = (inputFields) => {
+    let {pokemonSearch} = inputFields;
+    pokemonSearch = pokemonSearch ? pokemonSearch: "";
+    this.props.getPokemon(pokemonSearch);
+  }
+
+  render() {
+    console.log(this.props.pokemons);
+    const {handleSubmit} = this.props;
+    return (
+      <Container>
+          <Form
+            onSubmit={handleSubmit(this.submitPerformed)}
+          >
+            <FormGroup>
+              <InputGroup>
+                <Field 
+                  component={this.inputField} 
+                  name="pokemonSearch" />
+                <InputGroupAddon addonType="append">
+                  <Button>Search</Button>
+                </InputGroupAddon>
+              </InputGroup>
+            </FormGroup>
+          </Form>
+      </Container>
+    );
+  }
+}
+
+PokemonsSearch = reduxForm({
+  form: "pokemon-search"
+})(PokemonsSearch);
+
+function mapStateToProps(state) {
+  const { pokemons } = state;
+  return { pokemons };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    getPokemon: (pokemonToFind) => dispatch(getPokemon(pokemonToFind)) 
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PokemonsSearch);
