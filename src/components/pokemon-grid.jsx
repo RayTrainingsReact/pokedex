@@ -20,7 +20,7 @@ class PokemonGrid extends Component {
             onClick={() => {this.props.selectPokemon(pokemon, arrayIndex)}
                   }>
               <Container >
-                  <img src={pokemon.sprites.front_default} />
+                  <img src={pokemon.sprites.front_default} alt={pokemon.name} />
                   <p>{pokemon.order}</p>
                   <p>{pokemon.name}</p>
               </Container>

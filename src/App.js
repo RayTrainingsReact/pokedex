@@ -11,6 +11,7 @@ class App extends Component {
       <Container>
         <img
             className="rounded mx-auto d-block"
+            alt="Pokemon Logo"
             src={PokemonLogo} />
         <Row>
           <Col>

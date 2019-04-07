@@ -1,7 +1,20 @@
 import React, { Component } from "react";
-import axios from "axios";
 import {connect} from "react-redux";
 import pokeball from "./../pokeball.png";
+
+import {
+  calculateGenderPorcentage,
+  calculateHatchSteps,
+  calculateCatchRate,
+  getGroupsNames
+} from "./../utils/pokemon-species-utils";
+
+import {
+  getAbilities,
+  getWeightKg,
+  getHeightMeters
+} from "./../utils/pokemon-info-utils";
+
 import { Card, CardBody, CardTitle, Row, Col, Container, Progress } from "reactstrap";
 
 class PokemonInfo extends Component {
@@ -14,16 +27,21 @@ class PokemonInfo extends Component {
             <Row>
               <Col>
                 <img 
-                src={this.props.info.frontDefault}  
-              />
+                src={this.props.info.frontDefault}
+                alt={this.props.info.name + " image"}  />
               </Col>
               <Col>
-                HP <Progress striped color="success" value={this.props.info.hp}>{this.props.info.hp}%</Progress>
-                Attack <Progress striped color="success" value={this.props.info.attack}>{this.props.info.attack}%</Progress>
-                Defense <Progress striped color="success" value={this.props.info.deffense}>{this.props.info.deffense}%</Progress>
-                Speed <Progress striped color="success" value={this.props.info.speed}>{this.props.info.speed}%</Progress>
-                Sp Atk <Progress striped color="success" value={this.props.info.spAttack}>{this.props.info.spAttack}%</Progress>
-                Sp Def <Progress striped color="success" value={this.props.info.spDef}>{this.props.info.spDef}%</Progress>
+              {this.props.fightInfo.map((particularInfo) => {
+                  return(
+                    <Row key={particularInfo.label}>
+                        <Col>{particularInfo.label}</Col>
+                        <Col>
+                          <Progress striped color="success" value={particularInfo.value}>
+                            {particularInfo.value}%
+                          </Progress>
+                        </Col>
+                      </Row>);
+                })}
               </Col>
             </Row>
           </CardBody>
@@ -36,7 +54,7 @@ class PokemonInfo extends Component {
             <Col><b>Weight:</b> {this.props.info.weight}</Col>
           </Row>
           <Row>
-            <Col><b>Catch Rate:</b> 0%</Col>
+            <Col><b>Catch Rate:</b> {this.props.pokemonSpecies.catchRate}</Col>
             <Col><b>Gender Ratio:</b> {this.props.pokemonSpecies.genderRatio}</Col>
           </Row>
           <Row>
@@ -57,7 +75,7 @@ class PokemonInfo extends Component {
     return(
         <Container className="text-center">
             <h1>Empty State</h1>
-            <img src={pokeball} />
+            <img src={pokeball} alt="Empty State Pokeball" />
         </Container>
     );
   }
@@ -78,41 +96,35 @@ function mapStateToProps(state){
       eggGroups: "",
       hatchSteps: "",
       genderRatio: ""
-    }
+    },
+    fightInfo: []
   };
 
   if(state.pokemonSelected >= 0){
     let pokemonSelected = state.pokemonsReducer.pokemons[state.pokemonSelected];
     newProps.info = {
-      height: pokemonSelected.height / 10 + "m",
-      weight: pokemonSelected.weight / 10 + "kg",
-      abilities: pokemonSelected.abilities.map(
-        ability => ability.ability.name
-      ),
+      height:  getHeightMeters(pokemonSelected.height),
+      weight: getWeightKg(pokemonSelected.weight),
+      abilities: getAbilities(pokemonSelected.abilities),
       frontDefault: pokemonSelected.sprites.front_default,
       name: pokemonSelected.name,
       order: pokemonSelected.order,
-      hp: 50,
-      attack: 27,
-      deffense: 47,
-      speed: 87,
-      spAttack: 32,
-      spDef: 60 
     };
+    newProps.fightInfo = [
+      {label: "HP", value: 50 },
+      {label: "Attack", value: 27 },
+      {label: "Defense", value: 47 },
+      {label: "Speed", value: 87 },
+      {label: "Sp Atk", value: 32 },
+      {label: "Sp Def", value: 60 }
+    ];
   }
   if(state.pokemonSpecies.gender_rate) {
-    let genderRatio;
-    if (state.pokemonSpecies.gender_rate >= 0) {
-      const female = (state.pokemonSpecies.gender_rate / 8) * 100;
-      const male = 100 - female;
-      genderRatio = "F " + female + " M " + male;
-    } else {
-      genderRatio = "genderless";
-    }
     newProps.pokemonSpecies = {
-      eggGroups: state.pokemonSpecies.egg_groups.map(egg_group => egg_group.name),
-      hatchSteps: (state.pokemonSpecies.hatch_counter + 1) * 255,
-      genderRatio
+      eggGroups: getGroupsNames(state.pokemonSpecies.egg_groups),
+      hatchSteps: calculateHatchSteps(state.pokemonSpecies.hatch_counter),
+      catchRate: calculateCatchRate(state.pokemonSpecies.capture_rate),
+      genderRatio: calculateGenderPorcentage(state.pokemonSpecies.gender_rate)
     };
   }
   return newProps;
