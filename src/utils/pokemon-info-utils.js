@@ -14,3 +14,8 @@ export function getHeightMeters(height) {
 export function getWeightKg(weight) {
   return weight / 10 + "kg";
 }
+
+export function zeroPad(id, numberZeroes = 3) {
+  return id.toString().padStart(numberZeroes, "0")
+}
+

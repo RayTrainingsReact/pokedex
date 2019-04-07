@@ -12,7 +12,8 @@ import {
 import {
   getAbilities,
   getWeightKg,
-  getHeightMeters
+  getHeightMeters,
+  zeroPad
 } from "./../utils/pokemon-info-utils";
 
 import { Card, CardBody, CardTitle, Row, Col, Container, Progress } from "reactstrap";
@@ -108,7 +109,7 @@ function mapStateToProps(state){
       abilities: getAbilities(pokemonSelected.abilities),
       frontDefault: pokemonSelected.sprites.front_default,
       name: pokemonSelected.name,
-      order: pokemonSelected.order,
+      order: zeroPad(pokemonSelected.order)
     };
     newProps.fightInfo = [
       {label: "HP", value: 50 },

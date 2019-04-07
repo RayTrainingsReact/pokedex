@@ -6,6 +6,8 @@ import {
   Container
 } from "reactstrap";
 
+import { zeroPad } from "./../utils/pokemon-info-utils";
+
 import selectPokemon from "../redux/actions/select-pokemon";
 import getPokemonSpecies from "../redux/actions/get-pokemon-species";
 
@@ -21,7 +23,7 @@ class PokemonGrid extends Component {
                   }>
               <Container >
                   <img src={pokemon.sprites.front_default} alt={pokemon.name} />
-                  <p>{pokemon.order}</p>
+                  <p>{zeroPad(pokemon.order)}</p>
                   <p>{pokemon.name}</p>
               </Container>
             </Col>
