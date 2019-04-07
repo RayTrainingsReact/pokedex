@@ -1,6 +1,7 @@
 import {
   GET_POKEMON_SUCCESS,
-  GET_POKEMON_FAILURE
+  GET_POKEMON_FAILURE,
+  ADD_POKEMON_SUCCESS
 } from "./../actions/action-types";
 
 const stateDefault = {
@@ -10,11 +11,14 @@ const stateDefault = {
 
 export default function(state = stateDefault, action) {
   switch (action.type) {
-    case GET_POKEMON_SUCCESS:  
-      return { ...state, pokemons: [action.payload], error: false };
-     case GET_POKEMON_FAILURE:
-     	return { ...state, error: true };
-     default:
-     	return state;
+	case GET_POKEMON_SUCCESS:  
+		return { ...state, pokemons: [action.payload], error: false };
+	case ADD_POKEMON_SUCCESS:
+		const pokemonsOrdered = [...state.pokemons, action.payload].sort((pokemonA, pokemonB) => pokemonA.order - pokemonB.order); 	
+		return { ...state, pokemons: pokemonsOrdered, error: false };
+	case GET_POKEMON_FAILURE:
+		return { ...state, error: true };
+	default:
+		return state;
   }
 }

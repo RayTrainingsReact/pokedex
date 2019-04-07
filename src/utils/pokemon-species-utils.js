@@ -19,8 +19,8 @@ export function calculateCatchRate(captureRate) {
 }
 
 export function getGroupsNames(groups) {
-  return groups.reduce((groupNames, group) => {
-    if(groupNames.length === 0) {
+  return groups.reduce((groupNames, group, index) => {
+    if(index === 0) {
       return group.name;
     }
     return groupNames + ", " + group.name;

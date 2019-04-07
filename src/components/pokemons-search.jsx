@@ -12,6 +12,7 @@ import {
   Alert
 } from "reactstrap";
 import getPokemon from './../redux/actions/get-pokemon';
+import getPokemonList from './../redux/actions/get-pokemon-list';
 import selectPokemon from './../redux/actions/select-pokemon';
 
 class PokemonsSearch extends Component {
@@ -27,9 +28,9 @@ class PokemonsSearch extends Component {
     if(pokemonSearch) {
       this.props.getPokemon(pokemonSearch);
     }
-  /*else {
-
-    }*/
+    else {
+      this.props.getPokemonList();
+    }
     this.props.deselectPokemon();
   }
 
@@ -81,7 +82,8 @@ function mapStateToProps({pokemonsReducer}) {
 function mapDispatchToProps(dispatch) {
   return {
     getPokemon: (pokemonToFind) => dispatch(getPokemon(pokemonToFind)),
-    deselectPokemon: () => dispatch(selectPokemon(-1)) 
+    deselectPokemon: () => dispatch(selectPokemon(-1)),
+    getPokemonList: (offset = 0) => dispatch(getPokemonList(offset)) 
   };
 }
 
