@@ -1,14 +1,19 @@
 import axios from "axios";
+import {
+  GET_POKEMON_SPECIES,
+  GET_POKEMON_SPECIES_SUCCESS,
+  GET_POKEMON_SPECIES_FAILURE
+} from "./action-types";
+import {BASE_URL} from "./../../utils/api-constants";
 
 export default function(pokemonNameId) {
   return async function(dispatch) {
-    const BASE_URL = "https://pokeapi.co/api/v2";
-    dispatch({type: "GET_POKEMON_SPECIES"});
+    dispatch({type: GET_POKEMON_SPECIES});
     try {
       const response = await axios.get(`${BASE_URL}/pokemon-species/${pokemonNameId}/`);
-      dispatch({type: "GET_POKEMON_SPECIES_SUCCESS", payload: response.data});
+      dispatch({type: GET_POKEMON_SPECIES_SUCCESS, payload: response.data});
     } catch (e) {
-      dispatch({type: "GET_POKEMON_SPECIES_FAILURE"});
+      dispatch({type: GET_POKEMON_SPECIES_FAILURE});
     }
   }
 }
