@@ -1,16 +1,13 @@
 import React, { Component } from "react";
 import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 
-class PaginationPokemon extends Component {
-  renderPaginationNumbers() {
-    const { getPokemonList } = this.props;
-
-    let listPagination = [];
+function renderPaginationNumbers({ actualPage, lastPage, getPokemonList }) {
+    const listPagination = [];
     let prevPage = 0;
-    let postPage = this.props.actualPage + 1;
+    let postPage = actualPage + 1;
 
-    if (this.props.actualPage > 0) {
-      prevPage = this.props.actualPage - 1;
+    if (actualPage > 0) {
+      prevPage = actualPage - 1;
     }
 
     listPagination.push(
@@ -26,8 +23,8 @@ class PaginationPokemon extends Component {
     );
 
     for (
-      let i = this.props.actualPage + 1;
-      i < this.props.actualPage + 6 && i <= this.props.lastPage;
+      let i = actualPage + 1;
+      i < actualPage + 6 && i <= lastPage;
       i++
     ) {
       listPagination.push(
@@ -39,8 +36,8 @@ class PaginationPokemon extends Component {
       );
     }
 
-    if (postPage > this.props.lastPage) {
-      postPage = this.props.lastPage;
+    if (postPage > lastPage) {
+      postPage = lastPage;
     }
 
     listPagination.push(
@@ -52,7 +49,7 @@ class PaginationPokemon extends Component {
       <PaginationItem key="pagination-last">
         <PaginationLink
           last
-          onClick={() => getPokemonList(this.props.lastPage)}
+          onClick={() => getPokemonList(lastPage)}
         />
       </PaginationItem>
     );
@@ -60,12 +57,9 @@ class PaginationPokemon extends Component {
     return listPagination;
   }
 
-  render() {
-    const paginationToShow = this.props.shouldShowPagination ? (
-      <Pagination>{this.renderPaginationNumbers()}</Pagination>
+export default function PaginationPokemon(props) {
+  const paginationToShow = props.shouldShowPagination ? (
+      <Pagination>{renderPaginationNumbers(props)}</Pagination>
     ) : null;
     return paginationToShow;
-  }
 }
-
-export default PaginationPokemon;
