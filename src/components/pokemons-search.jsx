@@ -8,7 +8,8 @@ import {
   Input,
   InputGroup,
   Container,
-  InputGroupAddon
+  InputGroupAddon,
+  Alert
 } from "reactstrap";
 import getPokemon from './../redux/actions/get-pokemon';
 import selectPokemon from './../redux/actions/select-pokemon';
@@ -23,9 +24,25 @@ class PokemonsSearch extends Component {
 
   submitPerformed = (inputFields) => {
     let {pokemonSearch} = inputFields;
-    pokemonSearch = pokemonSearch ? pokemonSearch: "";
-    this.props.getPokemon(pokemonSearch);
+    if(pokemonSearch) {
+      this.props.getPokemon(pokemonSearch);
+    }
+  /*else {
+
+    }*/
     this.props.deselectPokemon();
+  }
+
+
+  showNotFoundMessage() {
+    if(this.props.isPokemonNotFound){
+      return(
+        <Alert color="danger">
+          Pokemon not found! Perhaps there is a server error or perhaps there is a typo somewhere in the name.
+        </Alert>
+      );
+    }
+      return null;
   }
 
   render() {
@@ -33,10 +50,10 @@ class PokemonsSearch extends Component {
     return (
       <Container>
           <Form
-            onSubmit={handleSubmit(this.submitPerformed)}
-          >
+            onSubmit={handleSubmit(this.submitPerformed)} >
             <FormGroup>
               <InputGroup>
+                {this.showNotFoundMessage()}
                 <Field 
                   component={this.inputField} 
                   name="pokemonSearch" />
@@ -55,6 +72,12 @@ PokemonsSearch = reduxForm({
   form: "pokemon-search"
 })(PokemonsSearch);
 
+function mapStateToProps({pokemonsReducer}) {
+  return {
+    isPokemonNotFound: pokemonsReducer.error
+  };
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     getPokemon: (pokemonToFind) => dispatch(getPokemon(pokemonToFind)),
@@ -62,4 +85,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(PokemonsSearch);
+export default connect(mapStateToProps, mapDispatchToProps)(PokemonsSearch);
