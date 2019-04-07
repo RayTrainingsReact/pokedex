@@ -10,7 +10,7 @@ export default function(pokemonToFind) {
   return async function(dispatch) {
     dispatch({type: GET_POKEMON});
     try {
-      const response = await axios.get(`${BASE_URL}/pokemon/${pokemonToFind}`);
+      const response = await axios.get(`${BASE_URL}/v2/pokemon/${pokemonToFind}`);
       dispatch({type: GET_POKEMON_SUCCESS, payload: response.data});
     } catch(e) {
       dispatch({type: GET_POKEMON_FAILURE});
