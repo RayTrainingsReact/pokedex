@@ -11,51 +11,51 @@ import {
   Alert
 } from "reactstrap";
 
-class PokemonsSearch extends Component {
-  inputField(inputProps) {
-    return <Input {...inputProps.input} />;
-  }
-
-  submitPerformed = inputFields => {
-    let { pokemonSearch } = inputFields;
-    if (pokemonSearch) {
-      this.props.getPokemon(pokemonSearch.toLowerCase());
-    } else {
-      this.props.getPokemonList();
-    }
-    this.props.deselectPokemon();
-  };
-
-  showNotFoundMessage() {
-    if (this.props.isPokemonNotFound) {
-      return (
-        <Alert color="danger">
-          Pokemon not found! Perhaps there is a server error or perhaps there is
-          a typo somewhere in the name.
-        </Alert>
-      );
-    }
-    return null;
-  }
-
-  render() {
-    const { handleSubmit } = this.props;
-    return (
-      <Container>
-        <Form onSubmit={handleSubmit(this.submitPerformed)}>
-          <FormGroup>
-            <InputGroup>
-              {this.showNotFoundMessage()}
-              <Field component={this.inputField} name="pokemonSearch" />
-              <InputGroupAddon addonType="append">
-                <Button>Search</Button>
-              </InputGroupAddon>
-            </InputGroup>
-          </FormGroup>
-        </Form>
-      </Container>
-    );
-  }
+function inputField(inputProps) {
+  return <Input {...inputProps.input} />;
 }
 
-export default PokemonsSearch;
+function submitPerformed(inputFields, props) {
+  let { pokemonSearch } = inputFields;
+  if (pokemonSearch) {
+    props.getPokemon(pokemonSearch.toLowerCase());
+  } else {
+    props.getPokemonList();
+  }
+  props.deselectPokemon();
+}
+
+function showNotFoundMessage(props) {
+  if (props.isPokemonNotFound) {
+    return (
+      <Alert color="danger">
+        Pokemon not found! Perhaps there is a server error or perhaps there is a
+        typo somewhere in the name.
+      </Alert>
+    );
+  }
+  return null;
+}
+
+export default function PokemonsSearch(props) {
+  const { handleSubmit } = props;
+  return (
+    <Container>
+      <Form
+        onSubmit={handleSubmit(inputFields =>
+          submitPerformed(inputFields, props)
+        )}
+      >
+        <FormGroup>
+          <InputGroup>
+            {showNotFoundMessage(props)}
+            <Field component={inputField} name="pokemonSearch" />
+            <InputGroupAddon addonType="append">
+              <Button>Search</Button>
+            </InputGroupAddon>
+          </InputGroup>
+        </FormGroup>
+      </Form>
+    </Container>
+  );
+}
