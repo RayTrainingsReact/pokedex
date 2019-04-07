@@ -3,6 +3,7 @@ import PokemonsSearch from "./components/pokemons-search";
 import PokemonInfo from "./components/pokemon-info";
 import PokemonGrid from "./components/pokemon-grid";
 import { Row, Col, Container } from "reactstrap";
+import PokemonLogo from "./logo-pokemon.png";
 
 class App extends Component {
   render() {
@@ -10,7 +11,7 @@ class App extends Component {
       <Container>
         <img
             className="rounded mx-auto d-block"
-            src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" />
+            src={PokemonLogo} />
         <Row>
           <Col>
             <PokemonInfo />

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import {connect} from "react-redux";
+import pokeball from "./../pokeball.png";
 import { Card, CardBody, CardTitle, Row, Col, Container, Progress } from "reactstrap";
 
 class PokemonInfo extends Component {
@@ -52,11 +53,19 @@ class PokemonInfo extends Component {
     );
   }
 
+  renderEmptyState() {
+    return(
+        <Container className="text-center">
+            <h1>Empty State</h1>
+            <img src={pokeball} />
+        </Container>
+    );
+  }
+
   render() {
-    console.log(this.props);
     const pokemonInfo = (this.props.pokemonSelected >= 0) 
                       ? this.renderInfo() 
-                      : <div>No info</div>;  
+                      : this.renderEmptyState();  
     return pokemonInfo;
   }
     
