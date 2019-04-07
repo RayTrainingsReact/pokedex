@@ -29,7 +29,7 @@ class PaginationPokemon extends Component {
       </PaginationItem> 
     );
             
-    for(let i = this.props.actualPage + 1; i < this.props.actualPage + 11 && i <= this.props.lastPage; i++){
+    for(let i = this.props.actualPage + 1; i < this.props.actualPage + 6 && i <= this.props.lastPage; i++){
       listPagination.push(
         <PaginationItem key={"pagination-" + i }>
           <PaginationLink onClick={() => getPokemonList(i - 1)}>
