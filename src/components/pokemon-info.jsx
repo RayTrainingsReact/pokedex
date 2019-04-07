@@ -16,7 +16,8 @@ function renderInfo(props) {
       <Card>
         <CardTitle className="text-center">
           <h1>
-            #{props.info.order} - {props.info.name}
+            #{props.info.order} -{" "}
+            <span className="capitalize">{props.info.name}</span>
           </h1>
         </CardTitle>
         <CardBody>

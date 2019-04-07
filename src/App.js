@@ -4,6 +4,7 @@ import PokemonInfo from "./containers/pokemon-info-container";
 import PokemonGrid from "./containers/pokemon-grid-container";
 import { Row, Col, Container } from "reactstrap";
 import PokemonLogo from "./logo-pokemon.png";
+import "./App.css"
 
 class App extends Component {
   render() {

@@ -21,7 +21,7 @@ class PokemonGrid extends Component {
           <Container>
             <img src={pokemon.sprites.front_default} alt={pokemon.name} />
             <p>{zeroPad(pokemon.order)}</p>
-            <p>{pokemon.name}</p>
+            <p className="capitalize">{pokemon.name}</p>
           </Container>
         </Col>
       );
