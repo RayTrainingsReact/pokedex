@@ -4,7 +4,6 @@ import PokemonGrid from "./../components/pokemon-grid";
 import selectPokemon from "../redux/actions/select-pokemon";
 import getPokemonSpecies from "../redux/actions/get-pokemon-species";
 import getPokemonList from "./../redux/actions/get-pokemon-list";
-import PokemonPagination from "./../components/pokemon-pagination";
 
 function mapStateToProps({ pokemonsReducer }) {
   return { pokemons: pokemonsReducer.pokemons };

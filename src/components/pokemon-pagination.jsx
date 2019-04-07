@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 
 function renderPaginationNumbers({ actualPage, lastPage, getPokemonList }) {

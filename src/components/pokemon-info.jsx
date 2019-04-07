@@ -1,20 +1,5 @@
 import React, { Component } from "react";
 import pokeball from "./../pokeball.png";
-
-import {
-  calculateGenderPorcentage,
-  calculateHatchSteps,
-  calculateCatchRate,
-  getGroupsNames
-} from "./../utils/pokemon-species-utils";
-
-import {
-  getAbilities,
-  getWeightKg,
-  getHeightMeters,
-  zeroPad
-} from "./../utils/pokemon-info-utils";
-
 import {
   Card,
   CardBody,
