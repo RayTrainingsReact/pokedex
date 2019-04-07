@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import PokemonsSearch from "./components/pokemons-search";
-import PokemonInfo from "./components/pokemon-info";
-import PokemonGrid from "./components/pokemon-grid";
+import PokemonsSearch from "./containers/pokemons-search-container";
+import PokemonInfo from "./containers/pokemon-info-container";
+import PokemonGrid from "./containers/pokemon-grid-container";
 import { Row, Col, Container } from "reactstrap";
 import PokemonLogo from "./logo-pokemon.png";
 
