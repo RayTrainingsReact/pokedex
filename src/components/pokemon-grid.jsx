@@ -11,6 +11,7 @@ import { zeroPad } from "./../utils/pokemon-info-utils";
 import selectPokemon from "../redux/actions/select-pokemon";
 import getPokemonSpecies from "../redux/actions/get-pokemon-species";
 import getPokemonList from './../redux/actions/get-pokemon-list';
+import PokemonPagination from "./pokemon-pagination";
 
 class PokemonGrid extends Component {
 	componentDidMount(){
@@ -20,8 +21,7 @@ class PokemonGrid extends Component {
 	renderPokemons(){
 		return this.props.pokemons.map((pokemon, arrayIndex) => {
 	      return(
-				<Col 
-					className="text-center" 
+				<Col  
 					key={pokemon.order}
 					onClick={() => {this.props.selectPokemon(pokemon, arrayIndex)}
 			      	}>
@@ -36,9 +36,14 @@ class PokemonGrid extends Component {
 	}
   
   render() {
-    return <Row>
-      {this.renderPokemons()}
-    </Row>; 
+    return ( 
+    <Container className="text-center">
+	    <Row>
+	      {this.renderPokemons()}
+	    </Row>
+	    <Row><Col><PokemonPagination /></Col></Row>
+	   </Container>
+	   ); 
   }
 }
 
