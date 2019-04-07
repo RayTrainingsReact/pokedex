@@ -12,6 +12,7 @@ import {
   InputGroupAddon
 } from "reactstrap";
 import getPokemon from './../redux/actions/get-pokemon';
+import selectPokemon from './../redux/actions/select-pokemon';
 
 class PokemonsSearch extends Component {
   inputField(inputProps) {
@@ -25,10 +26,10 @@ class PokemonsSearch extends Component {
     let {pokemonSearch} = inputFields;
     pokemonSearch = pokemonSearch ? pokemonSearch: "";
     this.props.getPokemon(pokemonSearch);
+    this.props.deselectPokemon();
   }
 
   render() {
-    console.log(this.props.pokemons);
     const {handleSubmit} = this.props;
     return (
       <Container>
@@ -55,15 +56,11 @@ PokemonsSearch = reduxForm({
   form: "pokemon-search"
 })(PokemonsSearch);
 
-function mapStateToProps(state) {
-  const { pokemons } = state;
-  return { pokemons };
-}
-
 function mapDispatchToProps(dispatch) {
   return {
-    getPokemon: (pokemonToFind) => dispatch(getPokemon(pokemonToFind)) 
+    getPokemon: (pokemonToFind) => dispatch(getPokemon(pokemonToFind)),
+    deselectPokemon: () => dispatch(selectPokemon(-1)) 
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PokemonsSearch);
+export default connect(null, mapDispatchToProps)(PokemonsSearch);
