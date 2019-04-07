@@ -26,7 +26,7 @@ class PokemonsSearch extends Component {
   submitPerformed = (inputFields) => {
     let {pokemonSearch} = inputFields;
     if(pokemonSearch) {
-      this.props.getPokemon(pokemonSearch);
+      this.props.getPokemon(pokemonSearch.toLowerCase());
     }
     else {
       this.props.getPokemonList();
