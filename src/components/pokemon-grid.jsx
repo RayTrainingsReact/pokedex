@@ -4,6 +4,8 @@ import { Row, Col, Container } from "reactstrap";
 import { zeroPad } from "./../utils/pokemon-info-utils";
 import PokemonPagination from "./../containers/pokemon-pagination-container";
 
+import { getProperty } from "./../utils/pokemon-info-utils";
+
 class PokemonGrid extends Component {
   componentDidMount() {
     this.props.getPokemonList();
@@ -22,6 +24,7 @@ class PokemonGrid extends Component {
             <img src={pokemon.sprites.front_default} alt={pokemon.name} />
             <p>{zeroPad(pokemon.order)}</p>
             <p className="capitalize">{pokemon.name}</p>
+            <p>Type: {getProperty(pokemon.types, "type")}</p>
           </Container>
         </Col>
       );

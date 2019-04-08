@@ -1,9 +1,14 @@
-export function getAbilities(abilities) {
-  return abilities.reduce((abilityNames, ability, index) => {
-    if(index === 0) {
-      return ability.ability.name;
+//TODO: rename in the future!
+export function getProperty(propertyList, property = "ability") {
+  if (!propertyList) {
+    return "";
+  }
+
+  return propertyList.reduce((propertyNames, propertyItem, index) => {
+    if (index === 0) {
+      return propertyItem[property].name;
     }
-    return abilityNames + ", " + ability.ability.name;
+    return propertyNames + ", " + propertyItem[property].name;
   }, "");
 }
 
@@ -16,6 +21,5 @@ export function getWeightKg(weight) {
 }
 
 export function zeroPad(id, numberZeroes = 3) {
-  return id.toString().padStart(numberZeroes, "0")
+  return id.toString().padStart(numberZeroes, "0");
 }
-

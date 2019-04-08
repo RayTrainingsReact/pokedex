@@ -8,7 +8,7 @@ import {
 } from "./../utils/pokemon-species-utils";
 
 import {
-  getAbilities,
+  getProperty,
   getWeightKg,
   getHeightMeters,
   zeroPad
@@ -30,7 +30,7 @@ function mapStateToProps(state) {
     newProps.info = {
       height: getHeightMeters(pokemonSelected.height),
       weight: getWeightKg(pokemonSelected.weight),
-      abilities: getAbilities(pokemonSelected.abilities),
+      abilities: getProperty(pokemonSelected.abilities, "ability"),
       frontDefault: pokemonSelected.sprites.front_default,
       name: pokemonSelected.name,
       order: zeroPad(pokemonSelected.order)
