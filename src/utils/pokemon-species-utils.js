@@ -3,7 +3,7 @@ export function calculateGenderPorcentage(genderRate) {
     if (genderRate >= 0) {
       const female = (genderRate / 8) * 100;
       const male = 100 - female;
-      genderRatio = "F " + female + " M " + male;
+      genderRatio = "F " + female + "% M " + male + "%";
     } else {
       genderRatio = "genderless";
     }
