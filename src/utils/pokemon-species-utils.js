@@ -15,6 +15,9 @@ export function calculateHatchSteps(hatchCounter) {
 }
 
 export function calculateCatchRate(captureRate) {
+  if(captureRate < 0) {
+    return "0.00%";
+  }
   return ((captureRate / 255) * 100).toFixed(2) + "%";
 }
 
